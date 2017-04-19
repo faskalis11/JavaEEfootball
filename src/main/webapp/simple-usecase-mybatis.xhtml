@@ -14,17 +14,17 @@
         <h1>Request type usecase example (DAO with MyBatis)</h1>
         <h:form>
             <p:fieldset legend="All students" toggleable="true" style="width: 50%">
-                <p:dataTable value="#{requestUseCaseControllerMyBatis.allStudents}" var="student">
+                <p:dataTable value="#{requestUseCaseControllerMyBatis.allStudents}" var="footballer">
                     <p:column headerText="Student">
-                        <h:outputText value="#{student.firstName} #{student.lastName} #{student.registrationNo}" />
+                        <h:outputText value="#{footballer.firstName} #{footballer.lastName} #{footballer.registrationNo}" />
                     </p:column>
                     <p:column headerText="Courses">
-                        <ui:repeat var="course" value="#{student.courses}">
+                        <ui:repeat var="course" value="#{footballer.courses}">
                             <h:outputText value="#{course.name} " />
                         </ui:repeat>
                     </p:column>
                     <p:column headerText="University">
-                        <h:outputText value="#{student.university.title} " />
+                        <h:outputText value="#{footballer.university.title} " />
                     </p:column>
                 </p:dataTable>
             </p:fieldset>

@@ -22,21 +22,21 @@
                                      update=":form:list"/>
                 </f:facet>
 
-                <p:dataTable value="#{editStudentUseCaseController.allStudents}" var="student" tableStyle="table-layout: auto">
+                <p:dataTable value="#{editStudentUseCaseController.allStudents}" var="footballer" tableStyle="table-layout: auto">
                     <p:column headerText="Student">
-                        #{student.firstName} #{student.lastName}, <br/><b>Reg. nr.</b>: #{student.registrationNo}
+                        #{footballer.firstName} #{footballer.lastName}, <br/><b>Reg. nr.</b>: #{footballer.registrationNo}
                     </p:column>
                     <p:column headerText="Courses">
-                        <ui:repeat var="course" value="#{student.courseList}" varStatus="courseStatus">
+                        <ui:repeat var="course" value="#{footballer.courseList}" varStatus="courseStatus">
                             #{course.name}<h:outputText value=", " rendered="#{not courseStatus.last}"/>
                         </ui:repeat>
                     </p:column>
                     <p:column headerText="University">
-                        #{student.university.title}
+                        #{footballer.university.title}
                     </p:column>
                     <p:column>
                         <p:commandButton value="Edit" icon="ui-icon-pencil"
-                                         actionListener="#{editStudentUseCaseController.prepareForEditing(student)}"
+                                         actionListener="#{editStudentUseCaseController.prepareForEditing(footballer)}"
                                          update=":form:studentDetail"
                                          oncomplete="PF('studentDialog').show()" />
                     </p:column>

@@ -26,12 +26,12 @@
             </ol>
 
             <p:fieldset legend="All students" toggleable="true" style="width: 50%">
-                <p:dataTable value="#{conversationUseCaseControllerCdi.allStudents}" var="student">
+                <p:dataTable value="#{conversationUseCaseControllerCdi.allStudents}" var="footballer">
                     <p:column headerText="Student">
-                        <h:outputText value="#{student.firstName} #{student.lastName} #{student.registrationNo}" />
+                        <h:outputText value="#{footballer.firstName} #{footballer.lastName} #{footballer.registrationNo}" />
                     </p:column>
                     <p:column headerText="Course">
-                        <ui:repeat var="course" value="#{student.courseList}">
+                        <ui:repeat var="course" value="#{footballer.courseList}">
                             <h:outputText value="#{course.name} " />
                         </ui:repeat>
                     </p:column>
