@@ -1,0 +1,62 @@
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:f="http://xmlns.jcp.org/jsf/core" xml:lang="en" lang="en">
+
+    <h:head>
+        <h:outputStylesheet name="css/styles.css" />
+        <title>Football</title>
+    </h:head>
+
+    <h:body>
+        <h1>Hey</h1>
+
+        <p:fieldset legend="Footballers" styleClass="fieldPanel">
+            <p:dataTable id="footballersTable" var="footballer" value="#{footballerController.allFootballers}">
+                <p:column headerText="Name">
+                    <h:outputText value="#{footballer.name}" />
+                </p:column>
+                <p:column headerText="Description">
+                    <h:outputText value="#{footballer.number}" />
+                </p:column>
+                <p:column headerText="Team" >
+                    <h:outputText value="#{footballer.team.name}" />
+                </p:column>
+            </p:dataTable>
+        </p:fieldset>
+        <h2>Create New Football player</h2>
+        <h:form>
+            <table>
+                <tr>
+                    <td>
+                        <h:panelGrid columns="3">
+                            <p:outputLabel for="name" value="Name"/>
+                            <p:inputText id="name" value="#{footballerController.footballer.name}"/>
+                            <p:message for="name"/>
+
+                            <p:outputLabel for="number" value="Kit Number"/>
+                            <p:inputText id="number" value="#{footballerController.footballer.number}"/>
+                            <p:message for="number"/>
+
+                            <p:outputLabel for="team" value="Team: " />
+                            <p:selectOneMenu id="team" value="#{footballerController.footballer.team}" style="width:150px">
+                                <f:selectItem itemLabel="Select Team" itemValue="" noSelectionOption="true" />
+                                <f:selectItems value="#{footballerController.teamDAO.allTeams}" var="team" itemLabel="#{team.name}" itemValue="#{team}" />
+                            </p:selectOneMenu>
+                            <p:message for="team"/>
+                        </h:panelGrid>
+                    </td>
+                </tr>
+            </table>
+
+            <p:commandButton value="Add football player."
+                             action="#{footballerController.createFootballer()}"
+                             ajax="false"/>
+            <p:messages globalOnly="true"/>
+        </h:form>
+
+    </h:body>
+</html>
