@@ -42,7 +42,8 @@
                             <p:message for="number"/>
 
                             <p:outputLabel for="team" value="Team: " />
-                            <p:selectOneMenu id="team" value="#{footballerController.footballer.team}" style="width:150px">
+                            <p:selectOneMenu id="team" value="#{footballerController.footballer.team}" style="width:150px"
+                                             converter="omnifaces.SelectItemsConverter">
                                 <f:selectItem itemLabel="Select Team" itemValue="" noSelectionOption="true" />
                                 <f:selectItems value="#{footballerController.teamDAO.allTeams}" var="team" itemLabel="#{team.name}" itemValue="#{team}" />
                             </p:selectOneMenu>
