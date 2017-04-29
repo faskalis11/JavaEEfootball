@@ -11,6 +11,10 @@
     <result column="NAME" jdbcType="VARCHAR" property="name" />
     <result column="NUMBER" jdbcType="INTEGER" property="number" />
     <result column="TEAM" jdbcType="INTEGER" property="team" />
+
+    <association property="teamO" resultMap="lt.vu.mybatis.dao.TeamMapper.BaseResultMap"
+                 column="TEAM"/>
+
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--
@@ -63,4 +67,5 @@
     select IDF, NAME, NUMBER, TEAM
     from PUBLIC.FOOTBALLER
   </select>
+
 </mapper>

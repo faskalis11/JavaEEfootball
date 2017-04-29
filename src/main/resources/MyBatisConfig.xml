@@ -8,6 +8,10 @@
         <typeAlias type="lt.vu.usecases.mybatis.model.Course" alias="Course"/>
         <typeAlias type="lt.vu.usecases.mybatis.model.University" alias="University"/>
         <typeAlias type="lt.vu.usecases.mybatis.model.StudentCourse" alias="StudentCourse"/>
+        <typeAlias type="lt.vu.mybatis.model.Footballer" alias="Footballer"/>
+        <typeAlias type="lt.vu.mybatis.model.Stadium" alias="Stadium"/>
+        <typeAlias type="lt.vu.mybatis.model.Team" alias="Team"/>
+        <typeAlias type="lt.vu.mybatis.model.TeamStadium" alias="TeamStadium"/>
     </typeAliases>
     <environments default="development">
         <environment id="development">
@@ -23,5 +27,9 @@
         <mapper resource="mybatis/xml/StudentMapper.xml"/>
         <mapper resource="mybatis/xml/StudentCourseMapper.xml"/>
         <mapper resource="mybatis/xml/UniversityMapper.xml"/>
+        <mapper resource="mybatis/xml/FootballerMapper.xml"/>
+        <mapper resource="mybatis/xml/StadiumMapper.xml"/>
+        <mapper resource="mybatis/xml/TeamMapper.xml"/>
+        <mapper resource="mybatis/xml/TeamStadiumMapper.xml"/>
     </mappers>
 </configuration>

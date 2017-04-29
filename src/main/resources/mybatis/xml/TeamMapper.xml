@@ -9,6 +9,9 @@
     -->
     <id column="ID" jdbcType="INTEGER" property="id" />
     <result column="NAME" jdbcType="VARCHAR" property="name" />
+
+    <collection property="stadiums" javaType="ArrayList" column="id" ofType="Stadium" select="selectStadiumsForTeam"/>
+
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--
@@ -56,5 +59,15 @@
     -->
     select ID, NAME
     from PUBLIC.TEAM
+  </select>
+
+  <select id="selectStadiumsForTeam" resultType="Stadium">
+    SELECT
+    s.ID,
+    s.NAME,
+    s.CAPACITY
+    FROM public.STADIUM s
+    JOIN public.TEAM_STADIUM ts on s.id = ts.STADIUMID
+    WHERE ts.TEAMID = #{id,jdbcType=INTEGER}
   </select>
 </mapper>

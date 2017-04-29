@@ -1,5 +1,10 @@
 package lt.vu.mybatis.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.List;
+
 public class Stadium {
     /**
      *
@@ -36,6 +41,11 @@ public class Stadium {
      *
      * @mbg.generated Tue Apr 25 15:48:58 EEST 2017
      */
+
+    @Setter
+    @Getter
+    private List<Team> teams;
+
     public Integer getId() {
         return id;
     }
