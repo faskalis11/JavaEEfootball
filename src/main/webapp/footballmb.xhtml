@@ -42,10 +42,10 @@
                             <p:message for="number"/>
 
                             <p:outputLabel for="team" value="Team: " />
-                            <p:selectOneMenu id="team" value="#{footballerControllerMyBatis.footballer.teamO}" style="width:150px"
+                            <p:selectOneMenu id="team" value="#{footballerControllerMyBatis.footballer.team}" style="width:150px"
                                              converter="omnifaces.SelectItemsConverter">
                                 <f:selectItem itemLabel="Select Team" itemValue="" noSelectionOption="true" />
-                                <f:selectItems value="#{footballerControllerMyBatis.allTems}" var="team" itemLabel="#{team.name}" itemValue="#{team}" />
+                                <f:selectItems value="#{footballerControllerMyBatis.allTems}" var="team" itemLabel="#{team.name}" itemValue="#{team.id}" />
                             </p:selectOneMenu>
                             <p:message for="team"/>
                         </h:panelGrid>

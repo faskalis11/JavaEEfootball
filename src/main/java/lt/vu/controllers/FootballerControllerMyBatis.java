@@ -44,21 +44,18 @@ public class FootballerControllerMyBatis {
     @Transactional
     public String createFootballer(){
 
-        System.out.println(footballer.getTeam() + " / " + footballer.getTeamO().getId() + " Click");
         footballerMapper.insert(footballer);
 
         return null;
     }
 
-    @Transactional
     public List<Team> getAllTems(){
         return teamMapper.selectAll();
     }
 
-    @Transactional
-    private Team getTeamById(int id){
+    /*private Team getTeamById(int id){
         return teamMapper.selectByPrimaryKey(id);
-    }
+    }*/
 
     private void loadAllFootballers(){
         allFootballers = footballerMapper.selectAll();

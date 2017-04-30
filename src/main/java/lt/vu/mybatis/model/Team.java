@@ -1,10 +1,12 @@
 package lt.vu.mybatis.model;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
 
+@EqualsAndHashCode(of = "name")
 public class Team {
     /**
      *
@@ -80,4 +82,9 @@ public class Team {
     public void setName(String name) {
         this.name = name;
     }
+
+    /*@Override
+    public String toString() {
+        return name;
+    }*/
 }
