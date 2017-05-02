@@ -49,6 +49,7 @@ public class FootballerControllerMyBatis {
         return null;
     }
 
+    @Transactional
     public List<Team> getAllTems(){
         return teamMapper.selectAll();
     }
