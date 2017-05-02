@@ -37,6 +37,7 @@ public class FootballerController implements Serializable{
     @Transactional
     public String createFootballer(){
         //footballer.setTeam(teamDAO.getAllTeams().get(0));
+        // adsdsadsa
         System.out.println(footballer.getName() + " " + footballer.getTeam().getName() + " " + footballer.getNumber());
         footballerDAO.create(footballer);
         return null;
