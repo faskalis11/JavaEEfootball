@@ -22,6 +22,15 @@
                 <p:column headerText="Kit number">
                     <h:outputText value="#{footballer.number}" />
                 </p:column>
+                <p:column headerText="Salary">
+                    <h:outputText value="#{footballer.salary}" />
+                </p:column>
+                <p:column headerText="Goals">
+                    <h:outputText value="#{footballer.goals}" />
+                </p:column>
+                <p:column headerText="Assists">
+                    <h:outputText value="#{footballer.assists}" />
+                </p:column>
                 <p:column headerText="Team" >
                     <h:outputText value="#{footballer.team.name}" />
                 </p:column>
@@ -41,6 +50,18 @@
                             <p:inputText id="number" value="#{footballerController.footballer.number}"/>
                             <p:message for="number"/>
 
+                            <p:outputLabel for="salary" value="Salary"/>
+                            <p:inputText id="salary" value="#{footballerController.footballer.salary}"/>
+                            <p:message for="salary"/>
+
+                            <p:outputLabel for="goals" value="Goals"/>
+                            <p:inputText id="goals" value="#{footballerController.footballer.goals}"/>
+                            <p:message for="goals"/>
+
+                            <p:outputLabel for="assist" value="Assist"/>
+                            <p:inputText id="assist" value="#{footballerController.footballer.assists}"/>
+                            <p:message for="assist"/>
+
                             <p:outputLabel for="team" value="Team: " />
                             <p:selectOneMenu id="team" value="#{footballerController.footballer.team}" style="width:150px"
                                              converter="omnifaces.SelectItemsConverter">
@@ -56,6 +77,122 @@
             <p:commandButton value="Add football player."
                              action="#{footballerController.createFootballer()}"
                              ajax="false"/>
+            <p:messages globalOnly="true"/>
+        </h:form>
+
+
+
+        <h:form id="form">
+            <p:fieldset id="list" style="width: 50%">
+                <f:facet name="legend">
+                    All footballers
+
+                    <p:commandButton value="Refresh" icon="ui-icon-arrowrefresh-1-e"
+                                     actionListener="#{editFootballerController.reloadAll}"
+                                     update=":form:list"/>
+                </f:facet>
+
+                <p:dataTable value="#{footballerController.allFootballers}" var="footballer" tableStyle="table-layout: auto">
+                    <p:column headerText="Footballer">
+                        ${footballer.name} <br/>Kit number: ${footballer.number}
+                    </p:column>
+                    <p:column headerText="Team">
+                        ${footballer.team.name}
+                    </p:column>
+
+                    <p:column headerText="Salary">
+                        ${footballer.salary}
+                    </p:column>
+
+                    <p:column headerText="Goals">
+                        ${footballer.goals}
+                    </p:column>
+                    <p:column headerText="Assists">
+                        ${footballer.assists}
+                    </p:column>
+
+                    <p:column>
+                        <p:commandButton value="Edit" icon="ui-icon-pencil"
+                                         actionListener="#{editFootballerController.prepareForEditing(footballer)}"
+                                         update=":form:studentDetail"
+                                         oncomplete="PF('studentDialog').show()" />
+                    </p:column>
+                </p:dataTable>
+            </p:fieldset>
+
+            <p:dialog header="Edit player" widgetVar="studentDialog" modal="true" closable="true" resizable="false" closeOnEscape="true">
+                <p:outputPanel id="studentDetail">
+                    <h:outputText value="No player was selected... Weird..." rendered="#{empty editFootballerController.selectedPlayer}" />
+
+                    <p:panelGrid  columns="3" rendered="#{not empty editFootballerController.selectedPlayer}"
+                                  columnClasses="label,value" styleClass="ui-noborder">
+                        <p:outputLabel for="nameEdit" value="Name:"/>
+                        <p:inputText id="nameEdit" value="#{editFootballerController.selectedPlayer.name}"/>
+                        <p:message for="nameEdit"/>
+
+                        <p:outputLabel for="teamEdit" value="Team:"/>
+                        <p:selectOneMenu id="teamEdit" value="#{editFootballerController.selectedPlayer.team}"
+                                         converter="omnifaces.SelectItemsIndexConverter">
+                            <f:selectItem itemLabel="Select Team" itemValue="#{null}"/>
+                            <f:selectItems value="#{footballerController.teamDAO.allTeams}" var="team" itemLabel="#{team.name}" itemValue="#{team}" />
+                        </p:selectOneMenu>
+
+                        <p:message for="teamEdit"/>
+                        <p:outputLabel for="salaryEdit" value="Salary:"/>
+                        <p:inputNumber id="salaryEdit" value="#{editFootballerController.selectedPlayer.salary}"/>
+                        <p:message for="salaryEdit"/>
+
+
+                        <p:outputLabel for="goalsEdit" value="Goals:"/>
+                        <p:inputNumber id="goalsEdit" value="#{editFootballerController.selectedPlayer.goals}"/>
+                        <p:message for="goalsEdit"/>
+
+                        <p:outputLabel for="assistsEdit" value="Assists:"/>
+                        <p:inputNumber id="assistsEdit" value="#{editFootballerController.selectedPlayer.assists}"/>
+                        <p:message for="assistsEdit"/>
+
+
+                        <h:outputText value="Opt. version:" />
+                        <h:outputText value="#{editFootballerController.selectedPlayer.optLockVersion}" style="font-weight: bold"/>
+                    </p:panelGrid>
+
+                    <p:commandButton value="Update" actionListener="#{editFootballerController.updateSelectedPlayer}"
+                                     rendered="#{empty editFootballerController.conflictingPlayer}"
+                                     icon="ui-icon-check" style="margin-top: 1em"
+                                     update=":form:studentDetail :form:list"
+                                     oncomplete="if (args &amp;&amp; !args.validationFailed) PF('studentDialog').hide()" />
+
+                    <p:panelGrid  columns="2" rendered="#{not empty editFootballerController.conflictingPlayer}"
+                                  columnClasses="label,value" styleClass="ui-noborder" style="margin-top: 1em">
+                        <f:facet name="header">Conflicting Player</f:facet>
+
+                        <h:outputText value="Name:"/>
+                        <h:outputText value="#{editFootballerController.conflictingPlayer.name}"/>
+
+                        <h:outputText value="Team:"/>
+                        <h:outputText value="#{editFootballerController.conflictingPlayer.team.name}"/>
+
+                        <h:outputText value="Salary:"/>
+                        <h:outputText value="#{editFootballerController.conflictingPlayer.salary}"/>
+
+                        <h:outputText value="Goals:"/>
+                        <h:outputText value="#{editFootballerController.conflictingPlayer.goals}" />
+
+                        <h:outputText value="Assists:"/>
+                        <h:outputText value="#{editFootballerController.conflictingPlayer.assists}" />
+
+                        <h:outputText value="Opt. version:" />
+                        <h:outputText value="#{editFootballerController.conflictingPlayer.optLockVersion}" style="font-weight: bold"/>
+                    </p:panelGrid>
+
+                    <p:commandButton value="Overwrite" actionListener="#{editFootballerController.overwritePlayer}"
+                                     rendered="#{not empty editFootballerController.conflictingPlayer}"
+                                     icon="ui-icon-notice" style="margin-top: 1em"
+                                     update=":form:studentDetail :form:list"
+                                     oncomplete="if (args &amp;&amp; !args.validationFailed) PF('studentDialog').hide()" />
+                </p:outputPanel>
+            </p:dialog>
+
             <p:messages globalOnly="true"/>
         </h:form>
 

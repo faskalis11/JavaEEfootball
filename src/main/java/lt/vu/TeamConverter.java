@@ -6,7 +6,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
-import javax.persistence.criteria.CriteriaBuilder;
 
 import lt.vu.dao.TeamDAO;
 import lt.vu.entities.Team;

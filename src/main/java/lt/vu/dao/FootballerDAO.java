@@ -3,9 +3,7 @@ package lt.vu.dao;
 import lt.vu.entities.Footballer;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.persistence.EntityManager;
 import java.util.List;
 
@@ -26,5 +24,15 @@ public class FootballerDAO {
         manager.persist(footballer);
         manager.flush();
     }
+
+    public void updateAndFlush(Footballer footballer) {
+        manager.merge(footballer);
+        manager.flush();
+    }
+
+    public Footballer findById(Integer id) {
+        return manager.find(Footballer.class, id);
+    }
+
 
 }

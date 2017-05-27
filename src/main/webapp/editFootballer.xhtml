@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+<head>
+    <h:outputStylesheet name="css/styles.css" />
+    <title>Edit Footballer</title>
+</head>
+<body>
+    <h1>Edit Student with Optimistic Locking</h1>
+
+    <h:form id="form">
+        <p:fieldset id="list" style="width: 50%">
+            <f:facet name="legend">
+                All footballers
+
+                <p:commandButton value="Refresh" icon="ui-icon-arrowrefresh-1-e"
+                                 actionListener="#{editFootballerController.reloadAll}"
+                                 update=":form:list"/>
+            </f:facet>
+
+            <p:dataTable value="#{footballerController.allFootballers}" var="footballer" tableStyle="table-layout: auto">
+                <p:column headerText="Footballer">
+                    #{footballer.name} <br/><b>Kit number</b>: #{footballer.number}
+                </p:column>
+                <p:column headerText="Team">
+                    #{footballer.team.name}
+                </p:column>
+                <p:column headerText="Salary">
+                    #{footballer.salary}
+                </p:column>
+                <p:column headerText="Goals">
+                    #{footballer.goals}
+                </p:column>
+                <p:column headerText="Assists">
+                    #{footballer.assists}
+                </p:column>
+                <p:column>
+                    <p:commandButton value="Edit" icon="ui-icon-pencil"
+                                     actionListener="#{editFootballerController.prepareForEditing(footballer)}"
+                                     update=":form:studentDetail"
+                                     oncomplete="PF('studentDialog').show()" />
+                </p:column>
+            </p:dataTable>
+        </p:fieldset>
+
+        <p:dialog header="Edit player" widgetVar="studentDialog" modal="true" closable="true" resizable="false" closeOnEscape="true">
+            <p:outputPanel id="studentDetail">
+                <!--<h:outputText value="No player was selected... Weird..." rendered="#{empty editFootballerController.selectedPlayer}" />
+                -->
+                <p:panelGrid  columns="3" rendered="#{not empty editFootballerController.selectedPlayer}"
+                              columnClasses="label,value" styleClass="ui-noborder">
+                    <p:outputLabel for="name" value="Name:"/>
+                    <p:inputText id="name" value="#{editFootballerController.selectedPlayer.name}"/>
+                    <p:message for="name"/>
+
+                    <p:outputLabel for="team" value="Team:"/>
+                    <p:selectOneMenu id="team" value="#{editFootballerController.selectedPlayer.team}"
+                                     converter="omnifaces.SelectItemsIndexConverter">
+                        <f:selectItem itemLabel="Select Team" itemValue="" noSelectionOption="true" />
+                        <f:selectItems value="#{footballerController.teamDAO.allTeams}" var="team" itemLabel="#{team.name}" itemValue="#{team}" />
+                    </p:selectOneMenu>
+                    <p:message for="team"/>
+
+                    <p:outputLabel for="salary" value="Salary:"/>
+                    <p:inputNumber id="salary" value="#{editFootballerController.selectedPlayer.salary}"/>
+                    <p:message for="salary"/>
+
+                    <p:outputLabel for="goals" value="Goals:"/>
+                    <p:inputNumber id="goals" value="#{editFootballerController.selectedPlayer.goals}"/>
+                    <p:message for="goals"/>
+
+                    <p:outputLabel for="assists" value="Assists:"/>
+                    <p:inputNumber id="assists" value="#{editFootballerController.selectedPlayer.assists}"/>
+                    <p:message for="assists"/>
+
+                    <h:outputText value="Opt. version:" />
+                    <h:outputText value="#{editFootballerController.selectedPlayer.optLockVersion}" style="font-weight: bold"/>
+                </p:panelGrid>
+
+                <p:commandButton value="Update" actionListener="#{editFootballerController.updateSelectedPlayer}"
+                                 rendered="#{empty editFootballerController.conflictingPlayer}"
+                                 icon="ui-icon-check" style="margin-top: 1em"
+                                 update=":form:studentDetail :form:list"
+                                 oncomplete="if (args &amp;&amp; !args.validationFailed) PF('studentDialog').hide()" />
+
+                <p:panelGrid  columns="2" rendered="#{not empty editFootballerController.conflictingPlayer}"
+                              columnClasses="label,value" styleClass="ui-noborder" style="margin-top: 1em">
+                    <f:facet name="header">Conflicting Player</f:facet>
+
+                    <h:outputText value="Name:"/>
+                    <h:outputText value="#{editFootballerController.conflictingPlayer.name}"/>
+
+                    <h:outputText value="Team:"/>
+                    <h:outputText value="#{editFootballerController.conflictingPlayer.team.name}"/>
+
+                    <h:outputText value="Salary:"/>
+                    <h:outputText value="#{editFootballerController.conflictingPlayer.salary}"/>
+
+                    <h:outputText value="Goals:"/>
+                    <h:outputText value="#{editFootballerController.conflictingPlayer.goals}" />
+
+                    <h:outputText value="Assists:"/>
+                    <h:outputText value="#{editFootballerController.conflictingPlayer.assists}" />
+
+                    <h:outputText value="Opt. version:" />
+                    <h:outputText value="#{editFootballerController.conflictingPlayer.optLockVersion}" style="font-weight: bold"/>
+                </p:panelGrid>
+
+                <p:commandButton value="Overwrite" actionListener="#{editFootballerController.overwritePlayer}"
+                                 rendered="#{not empty editFootballerController.conflictingPlayer}"
+                                 icon="ui-icon-notice" style="margin-top: 1em"
+                                 update=":form:studentDetail :form:list"
+                                 oncomplete="if (args &amp;&amp; !args.validationFailed) PF('studentDialog').hide()" />
+            </p:outputPanel>
+        </p:dialog>
+
+        <p:messages globalOnly="true"/>
+    </h:form>
+</body>
+</html>

@@ -13,6 +13,7 @@ import javax.validation.constraints.Size;
 @NamedQueries({
         @NamedQuery(name = "Footballer.findAll", query = "SELECT u FROM Footballer u"),
         @NamedQuery(name = "Footballer.findTeam", query = "SELECT u FROM Footballer u WHERE u.team = :team"),
+        @NamedQuery(name = "Footballer.findById", query = "SELECT f FROM Footballer f WHERE f.idf = :id"),
 })
 @Table(name = "footballer")
 public class Footballer {
@@ -29,7 +30,20 @@ public class Footballer {
     @Column(name = "number")
     private int number;
 
+    @Column(name = "salary")
+    private int salary;
+
+    @Column(name = "goals")
+    private int goals;
+
+    @Column(name = "assist")
+    private int assists;
+
     @JoinColumn(name = "team", referencedColumnName = "id")
     @ManyToOne
     private Team team;
+
+    @Version
+    @Column(name = "OPT_LOCK_VERSION")
+    private Integer optLockVersion;
 }

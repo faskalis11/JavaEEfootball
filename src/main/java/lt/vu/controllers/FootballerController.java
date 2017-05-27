@@ -4,10 +4,8 @@ import lombok.Getter;
 import lt.vu.dao.FootballerDAO;
 import lt.vu.dao.TeamDAO;
 import lt.vu.entities.Footballer;
-import lt.vu.entities.Team;
 
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
@@ -36,9 +34,6 @@ public class FootballerController implements Serializable{
 
     @Transactional
     public String createFootballer(){
-        //footballer.setTeam(teamDAO.getAllTeams().get(0));
-        // adsdsadsa
-        System.out.println(footballer.getName() + " " + footballer.getTeam().getName() + " " + footballer.getNumber());
         footballerDAO.create(footballer);
         return null;
     }
