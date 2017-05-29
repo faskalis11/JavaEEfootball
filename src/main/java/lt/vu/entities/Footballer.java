@@ -33,6 +33,9 @@ public class Footballer {
     @Column(name = "salary")
     private int salary;
 
+    @Column(name = "bonus")
+    private int bonus = 0;
+
     @Column(name = "goals")
     private int goals;
 

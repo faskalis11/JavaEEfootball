@@ -6,4 +6,15 @@
                       http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd"
         bean-discovery-mode="annotated">
 
+    <interceptors>
+        <class>lt.vu.utility.LoggedInterceptor</class>
+    </interceptors>
+    <alternatives>
+        <class>lt.vu.controllers.BigBonusCalculatorController</class>
+    </alternatives>
+
+    <decorators>
+        <class>lt.vu.controllers.IncomeTaxesCalculator</class>
+    </decorators>
+
 </beans>

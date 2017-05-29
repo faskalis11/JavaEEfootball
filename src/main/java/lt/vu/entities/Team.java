@@ -37,6 +37,9 @@ public class Team {
     @ManyToMany(mappedBy = "teamList")
     private List<Stadium> stadiumList = new ArrayList<>();
 
+    @Column(name = "salary_multipler")
+    private int salaryMultipler;
+
     /*@Override
     public String toString() {
         return name;

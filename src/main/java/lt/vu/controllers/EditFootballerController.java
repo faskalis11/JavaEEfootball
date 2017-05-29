@@ -1,19 +1,16 @@
 package lt.vu.controllers;
 
 import lombok.Getter;
+import lt.vu.api.SalaryCalculator;
 import lt.vu.dao.FootballerDAO;
 import lt.vu.dao.TeamDAO;
 import lt.vu.entities.Footballer;
-import lt.vu.entities.Student;
 import lt.vu.entities.Team;
-import lt.vu.entities.University;
-import lt.vu.usecases.cdi.dao.CourseDAO;
-import lt.vu.usecases.cdi.dao.StudentDAO;
-import lt.vu.usecases.cdi.dao.UniversityDAO;
-import org.hibernate.Hibernate;
+import lt.vu.utility.Logged;
 import org.primefaces.context.RequestContext;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.inject.Default;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -39,6 +36,9 @@ public class EditFootballerController implements Serializable {
     @Inject private FootballerDAO footballerDAO;
     @Inject private TeamDAO teamDAO;
 
+    @Inject
+    SalaryCalculator salaryCalculator;
+
     @PostConstruct
     public void init() {
         reloadAll();
@@ -50,8 +50,10 @@ public class EditFootballerController implements Serializable {
     }
 
     @Transactional
+    @Logged
     public void updateSelectedPlayer() {
         try {
+            salaryCalculator.calculateSalaryClub(selectedPlayer);
             footballerDAO.updateAndFlush(selectedPlayer);
             reloadAll();
         } catch (OptimisticLockException ole) {
@@ -64,6 +66,7 @@ public class EditFootballerController implements Serializable {
     }
 
     @Transactional
+    @Logged
     public void overwritePlayer() {
         selectedPlayer.setOptLockVersion(conflictingPlayer.getOptLockVersion());
         updateSelectedPlayer();
@@ -71,6 +74,9 @@ public class EditFootballerController implements Serializable {
 
     public void reloadAll() {
         allPlayers = footballerDAO.getAllFootballers();
+        for (Footballer player : allPlayers){
+            salaryCalculator.calculateSalaryClub(player);
+        }
         allTeams = teamDAO.getAllTeams();
     }
 }

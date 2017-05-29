@@ -19,7 +19,6 @@ public class FootballerDAO {
     }
 
     public void create(Footballer footballer) {
-        System.out.println(footballer.getTeam().getName());
 
         manager.persist(footballer);
         manager.flush();

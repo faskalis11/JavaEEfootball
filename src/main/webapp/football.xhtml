@@ -4,86 +4,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:f="http://xmlns.jcp.org/jsf/core" xml:lang="en" lang="en">
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xml:lang="en" lang="en">
 
     <h:head>
         <h:outputStylesheet name="css/styles.css" />
         <title>Football</title>
+
     </h:head>
 
     <h:body>
-        <h1>Hey</h1>
-
-        <p:fieldset legend="Footballers" styleClass="fieldPanel">
-            <p:dataTable id="footballersTable" var="footballer" value="#{footballerController.allFootballers}">
-                <p:column headerText="Name">
-                    <h:outputText value="#{footballer.name}" />
-                </p:column>
-                <p:column headerText="Kit number">
-                    <h:outputText value="#{footballer.number}" />
-                </p:column>
-                <p:column headerText="Salary">
-                    <h:outputText value="#{footballer.salary}" />
-                </p:column>
-                <p:column headerText="Goals">
-                    <h:outputText value="#{footballer.goals}" />
-                </p:column>
-                <p:column headerText="Assists">
-                    <h:outputText value="#{footballer.assists}" />
-                </p:column>
-                <p:column headerText="Team" >
-                    <h:outputText value="#{footballer.team.name}" />
-                </p:column>
-            </p:dataTable>
-        </p:fieldset>
-        <h2>Create New Football player</h2>
-        <h:form>
-            <table>
-                <tr>
-                    <td>
-                        <h:panelGrid columns="3">
-                            <p:outputLabel for="name" value="Name"/>
-                            <p:inputText id="name" value="#{footballerController.footballer.name}"/>
-                            <p:message for="name"/>
-
-                            <p:outputLabel for="number" value="Kit Number"/>
-                            <p:inputText id="number" value="#{footballerController.footballer.number}"/>
-                            <p:message for="number"/>
-
-                            <p:outputLabel for="salary" value="Salary"/>
-                            <p:inputText id="salary" value="#{footballerController.footballer.salary}"/>
-                            <p:message for="salary"/>
-
-                            <p:outputLabel for="goals" value="Goals"/>
-                            <p:inputText id="goals" value="#{footballerController.footballer.goals}"/>
-                            <p:message for="goals"/>
-
-                            <p:outputLabel for="assist" value="Assist"/>
-                            <p:inputText id="assist" value="#{footballerController.footballer.assists}"/>
-                            <p:message for="assist"/>
-
-                            <p:outputLabel for="team" value="Team: " />
-                            <p:selectOneMenu id="team" value="#{footballerController.footballer.team}" style="width:150px"
-                                             converter="omnifaces.SelectItemsConverter">
-                                <f:selectItem itemLabel="Select Team" itemValue="" noSelectionOption="true" />
-                                <f:selectItems value="#{footballerController.teamDAO.allTeams}" var="team" itemLabel="#{team.name}" itemValue="#{team}" />
-                            </p:selectOneMenu>
-                            <p:message for="team"/>
-                        </h:panelGrid>
-                    </td>
-                </tr>
-            </table>
-
-            <p:commandButton value="Add football player."
-                             action="#{footballerController.createFootballer()}"
-                             ajax="false"/>
-            <p:messages globalOnly="true"/>
-        </h:form>
-
-
+        <h1>2 lab</h1>
 
         <h:form id="form">
-            <p:fieldset id="list" style="width: 50%">
+            <p:fieldset id="list" style="width: 80%">
                 <f:facet name="legend">
                     All footballers
 
@@ -102,6 +36,10 @@
 
                     <p:column headerText="Salary">
                         ${footballer.salary}
+                    </p:column>
+
+                    <p:column headerText="Bonus">
+                        ${footballer.bonus}
                     </p:column>
 
                     <p:column headerText="Goals">
@@ -195,6 +133,85 @@
 
             <p:messages globalOnly="true"/>
         </h:form>
+        <h:form>
+            <h:commandButton id="calc2" value="Calculate all"
+                             icon="ui-icon-notice" style="margin-top: 1em"
+                             action="#{footballerController.calculateAll()}"/>
+        </h:form>
+
+
+
+        <h2>1 lab</h2>
+
+        <p:fieldset legend="Footballers" styleClass="fieldPanel">
+            <p:dataTable id="footballersTable" var="footballer" value="#{footballerController.allFootballers}">
+                <p:column headerText="Name">
+                    <h:outputText value="#{footballer.name}" />
+                </p:column>
+                <p:column headerText="Kit number">
+                    <h:outputText value="#{footballer.number}" />
+                </p:column>
+                <p:column headerText="Salary">
+                    <h:outputText value="#{footballer.salary}" />
+                </p:column>
+                <p:column headerText="Goals">
+                    <h:outputText value="#{footballer.goals}" />
+                </p:column>
+                <p:column headerText="Assists">
+                    <h:outputText value="#{footballer.assists}" />
+                </p:column>
+                <p:column headerText="Team" >
+                    <h:outputText value="#{footballer.team.name}" />
+                </p:column>
+            </p:dataTable>
+        </p:fieldset>
+        <h2>Create New Football player</h2>
+        <h:form>
+            <table>
+                <tr>
+                    <td>
+                        <h:panelGrid columns="3">
+                            <p:outputLabel for="name" value="Name"/>
+                            <p:inputText id="name" value="#{footballerController.footballer.name}"/>
+                            <p:message for="name"/>
+
+                            <p:outputLabel for="number" value="Kit Number"/>
+                            <p:inputText id="number" value="#{footballerController.footballer.number}"/>
+                            <p:message for="number"/>
+
+                            <p:outputLabel for="salary" value="Salary"/>
+                            <p:inputText id="salary" value="#{footballerController.footballer.salary}"/>
+                            <p:message for="salary"/>
+
+                            <p:outputLabel for="goals" value="Goals"/>
+                            <p:inputText id="goals" value="#{footballerController.footballer.goals}"/>
+                            <p:message for="goals"/>
+
+                            <p:outputLabel for="assist" value="Assist"/>
+                            <p:inputText id="assist" value="#{footballerController.footballer.assists}"/>
+                            <p:message for="assist"/>
+
+                            <p:outputLabel for="team" value="Team: " />
+                            <p:selectOneMenu id="team" value="#{footballerController.footballer.team}" style="width:150px"
+                                             converter="omnifaces.SelectItemsConverter">
+                                <f:selectItem itemLabel="Select Team" itemValue="" noSelectionOption="true" />
+                                <f:selectItems value="#{footballerController.teamDAO.allTeams}" var="team" itemLabel="#{team.name}" itemValue="#{team}" />
+                            </p:selectOneMenu>
+                            <p:message for="team"/>
+                        </h:panelGrid>
+                    </td>
+                </tr>
+            </table>
+
+            <p:commandButton value="Add football player."
+                             action="#{footballerController.createFootballer()}"
+                             ajax="false"/>
+            <p:messages globalOnly="true"/>
+        </h:form>
+
+
+
+
 
     </h:body>
 </html>
