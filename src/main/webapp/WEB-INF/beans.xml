@@ -13,8 +13,11 @@
         <class>lt.vu.controllers.BigBonusCalculatorController</class>
     </alternatives>
 
+    <!--<decorators>-->
+        <!--<class>lt.vu.controllers.IncomeTaxesDecorator</class>-->
+    <!--</decorators>-->
     <decorators>
-        <class>lt.vu.controllers.IncomeTaxesCalculator</class>
+        <class>lt.vu.dao.FootballerDecorator</class>
     </decorators>
 
 </beans>

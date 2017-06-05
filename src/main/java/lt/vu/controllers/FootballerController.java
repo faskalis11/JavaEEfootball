@@ -1,7 +1,9 @@
 package lt.vu.controllers;
 
 import lombok.Getter;
+import lt.vu.api.TaxesCalculator;
 import lt.vu.dao.FootballerDAO;
+import lt.vu.dao.TaxesDAO;
 import lt.vu.dao.TeamDAO;
 import lt.vu.entities.Footballer;
 import org.omnifaces.util.Messages;
@@ -31,10 +33,22 @@ public class FootballerController implements Serializable{
     private TeamDAO teamDAO;
 
     @Inject
+    @Getter
+    private TaxesDAO taxesDAO;
+
+    @Inject
     CalculateAllSalary calculateAllSalary;
 
     @Getter
     private Footballer footballer = new Footballer();
+
+//    @Inject
+//    @Getter
+//    TaxesCalculator taxesCalculator;
+
+//    @Inject
+//    @Getter
+//    IncomeTaxesDecorator incomeTaxesDecorator;
 
     @Getter
     private Future<Integer> integerFuture = null;
@@ -65,6 +79,13 @@ public class FootballerController implements Serializable{
         }
 
     }
+
+//    public void calculateTaxesAll(){
+//        for (Footballer player : getAllFootballers()){
+//            incomeTaxesDecorator.takeTaxes(player.getSalary() + player.getBonus());
+//
+//        }
+//    }
 
     /*public String createFootballer(String name, int number){
         footballer.setName(name);

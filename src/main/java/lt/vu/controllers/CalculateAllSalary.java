@@ -1,9 +1,11 @@
 package lt.vu.controllers;
 
 import lt.vu.entities.Footballer;
+import org.apache.deltaspike.core.api.future.Futureable;
 
 import javax.ejb.AsyncResult;
 import javax.enterprise.context.Dependent;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.concurrent.Future;
 
@@ -11,6 +13,8 @@ import java.util.concurrent.Future;
 @Dependent
 public class CalculateAllSalary {
 
+    @Futureable
+    // @Transactional(Transactional.TxType.REQUIRES_NEW)
     Future<Integer> calculateAll(List<Footballer> listPlayer){
         try{
             Integer sum = 0;

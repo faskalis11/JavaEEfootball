@@ -2,5 +2,5 @@ package lt.vu.api;
 
 
 public interface TaxesCalculator {
-    public int takeTaxes(int salary);
+    double takeTaxes(int salary);
 }

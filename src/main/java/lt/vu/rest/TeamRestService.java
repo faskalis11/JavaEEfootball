@@ -53,7 +53,6 @@ public class TeamRestService {
         em.merge(team);
         return Response.ok(team).build();
 
-
     }
 }
 

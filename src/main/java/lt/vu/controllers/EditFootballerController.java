@@ -2,9 +2,11 @@ package lt.vu.controllers;
 
 import lombok.Getter;
 import lt.vu.api.SalaryCalculator;
+import lt.vu.api.TaxesCalculator;
 import lt.vu.dao.FootballerDAO;
 import lt.vu.dao.TeamDAO;
 import lt.vu.entities.Footballer;
+import lt.vu.entities.Taxes;
 import lt.vu.entities.Team;
 import lt.vu.utility.Logged;
 import org.primefaces.context.RequestContext;
@@ -39,6 +41,7 @@ public class EditFootballerController implements Serializable {
     @Inject
     SalaryCalculator salaryCalculator;
 
+
     @PostConstruct
     public void init() {
         reloadAll();
@@ -65,7 +68,7 @@ public class EditFootballerController implements Serializable {
         }
     }
 
-    @Transactional
+    @Transactional(Transactional.TxType.REQUIRES_NEW)
     @Logged
     public void overwritePlayer() {
         selectedPlayer.setOptLockVersion(conflictingPlayer.getOptLockVersion());
@@ -76,6 +79,7 @@ public class EditFootballerController implements Serializable {
         allPlayers = footballerDAO.getAllFootballers();
         for (Footballer player : allPlayers){
             salaryCalculator.calculateSalaryClub(player);
+            //taxesCalculator.takeTaxes(player.getSalary() + player.getBonus());
         }
         allTeams = teamDAO.getAllTeams();
     }

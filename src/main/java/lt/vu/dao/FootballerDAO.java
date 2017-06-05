@@ -1,5 +1,6 @@
 package lt.vu.dao;
 
+import lt.vu.api.DAOapi;
 import lt.vu.entities.Footballer;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -8,7 +9,7 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 @ApplicationScoped
-public class FootballerDAO {
+public class FootballerDAO implements DAOapi{
     @Inject
     private EntityManager manager;
 

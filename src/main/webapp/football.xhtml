@@ -58,6 +58,8 @@
                 </p:dataTable>
             </p:fieldset>
 
+
+
             <p:dialog header="Edit player" widgetVar="studentDialog" modal="true" closable="true" resizable="false" closeOnEscape="true">
                 <p:outputPanel id="studentDetail">
                     <h:outputText value="No player was selected... Weird..." rendered="#{empty editFootballerController.selectedPlayer}" />
@@ -141,30 +143,6 @@
 
 
 
-        <h2>1 lab</h2>
-
-        <p:fieldset legend="Footballers" styleClass="fieldPanel">
-            <p:dataTable id="footballersTable" var="footballer" value="#{footballerController.allFootballers}">
-                <p:column headerText="Name">
-                    <h:outputText value="#{footballer.name}" />
-                </p:column>
-                <p:column headerText="Kit number">
-                    <h:outputText value="#{footballer.number}" />
-                </p:column>
-                <p:column headerText="Salary">
-                    <h:outputText value="#{footballer.salary}" />
-                </p:column>
-                <p:column headerText="Goals">
-                    <h:outputText value="#{footballer.goals}" />
-                </p:column>
-                <p:column headerText="Assists">
-                    <h:outputText value="#{footballer.assists}" />
-                </p:column>
-                <p:column headerText="Team" >
-                    <h:outputText value="#{footballer.team.name}" />
-                </p:column>
-            </p:dataTable>
-        </p:fieldset>
         <h2>Create New Football player</h2>
         <h:form>
             <table>
@@ -206,12 +184,32 @@
             <p:commandButton value="Add football player."
                              action="#{footballerController.createFootballer()}"
                              ajax="false"/>
-            <p:messages globalOnly="true"/>
         </h:form>
 
 
+        <h2>1 lab</h2>
 
-
-
+        <p:fieldset legend="Footballers" styleClass="fieldPanel">
+            <p:dataTable id="footballersTable" var="footballer" value="#{footballerController.allFootballers}">
+                <p:column headerText="Name">
+                    <h:outputText value="#{footballer.name}" />
+                </p:column>
+                <p:column headerText="Kit number">
+                    <h:outputText value="#{footballer.number}" />
+                </p:column>
+                <p:column headerText="Salary">
+                    <h:outputText value="#{footballer.salary}" />
+                </p:column>
+                <p:column headerText="Goals">
+                    <h:outputText value="#{footballer.goals}" />
+                </p:column>
+                <p:column headerText="Assists">
+                    <h:outputText value="#{footballer.assists}" />
+                </p:column>
+                <p:column headerText="Team" >
+                    <h:outputText value="#{footballer.team.name}" />
+                </p:column>
+            </p:dataTable>
+        </p:fieldset>
     </h:body>
 </html>
